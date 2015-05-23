@@ -1,0 +1,89 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Groups</h3>
+    </div>
+    <div class="panel-body">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" data-bind="click: refresh">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-bind="click: showFilter">
+                    <i class="glyphicon glyphicon-filter"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-bind="click: removeAll">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
+            <div class="btn-group">
+                <a href="#/groups/add" class="btn btn-default">
+                    Add New
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th width="1"><input type="checkbox" data-bind="click: checkAll" /></th>
+                    <th width="80"><a href="#" data-bind="click: orderBy.bind($data, 'Group.id')">ID</a></th>
+                    <th width=""><a href="#" data-bind="click: orderBy.bind($data, 'Group.name')">Name</a></th>
+                    <th width="">Description</th>
+                    <th width="150"><a href="#" data-bind="click: orderBy.bind($data, 'Group.created')">Created</a></th>
+                    <th width="150"><a href="#" data-bind="click: orderBy.bind($data, 'Group.modified')">Modified</a></th>
+                    <th width="1"><a href="#" data-bind="click: orderBy.bind($data, 'Group.user_count')">User Count</a></th>
+                    <th width="1"><a href="#" data-bind="click: orderBy.bind($data, 'Group.status')">Status</a></th>
+                    <th width="80">Panel</th>
+                </tr>
+                <tr class="bg-default" data-bind="fadeVisible: display">
+                    <td></td>
+                    <td><input type="text" data-bind="value: filter.id" class="form-control input-sm" /></td>
+                    <td><input type="text" data-bind="value: filter.name" class="form-control input-sm" /></td>
+                    <td><input type="text" data-bind="value: filter.description" class="form-control input-sm" /></td>
+                    <td><input type="text" data-bind="datepicker: filter.created, datepickerOptions: {weekStart: '1', format: 'dd-mm-yyyy', language: 'es'}" class="form-control input-sm" /></td>
+                    <td><input type="text" data-bind="datepicker: filter.modified, datepickerOptions: {weekStart: '1', format: 'dd-mm-yyyy', language: 'es'}" class="form-control input-sm" /></td>
+                    <td></td>                    
+                    <td><select name="commune" data-bind="options: status, optionsText: 'name', optionsValue: 'id', value: filter.status, optionsCaption: '', chosen: true" class="form-control input-sm"></select></td>
+                    <td><button type="button" data-bind="click: paging.paginate.bind($data, 1)" class="btn btn-primary btn-sm">Search</button></td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: groups">
+                <tr data-bind="css: Group.checked()? 'bg-selected': ''">
+                    <td><input type="checkbox" data-bind="checked: Group.checked" /></td>
+                    <td data-bind="text: Group.id"></td>
+                    <td data-bind="text: Group.name"></td>
+                    <td data-bind="text: Group.description"></td>
+                    <td data-bind="text: Group.created, dateFormat: 'MMMM Do YYYY'"></td>
+                    <td data-bind="text: Group.modified, dateFormat: 'MMMM Do YYYY'"></td>
+                    <td align="center" data-bind="text: Group.user_count"></td>
+                    <td align="center">
+                        <a href="#" class="btn btn-xs" data-bind="click: $parent.update, css: Group.status() ? 'btn-success' : 'btn-danger'"><i class="glyphicon glyphicon-check"></i></a>
+                    </td>
+                    <td align="center">
+                        <a data-bind="attr: { href: '#/groups/edit/' + Group.id() }" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                        <button data-bind="click: $parent.remove.bind($data, $parent)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-body text-right">
+        <ul class="pagination">
+            <li  data-bind="css: {disabled: paging.page() === 1}">
+                <a href="#" data-bind="click: paging.paginate.bind($data, paging.page() + 1)">&laquo;</a>
+            </li>
+            <!-- ko foreach: { data: paging.pagers, as: 'i' } -->
+            <li data-bind="css: {active: i === $parent.paging.page()}">
+                <a href="#" data-bind="text: i, click: $parent.paging.paginate.bind($data, i)"></a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="css: {disabled: paging.pageCount() === paging.page()}">
+                <a href="#" data-bind="click:  paging.paginate.bind($data, paging.page() - 1)">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+    
+</div>

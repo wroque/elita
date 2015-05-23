@@ -1,0 +1,53 @@
+<form data-bind="submit: save" class="form-horizontal">
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Add Group</a>
+            </li>
+            <li role="presentation" class="disabled">
+                <a href="#/groups/add">Permissions</a>
+            </li>
+        </ul>
+        <div data-bind="with: data" class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="edit">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Name</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" name="name" data-bind="value: Group.name" class="form-control" autocomplete="off" />
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-5">
+                        <textarea name="description" data-bind="value: Group.description, textareaCount: true" class="form-control" rows="6"></textarea>
+                    </div>
+                </div>
+                
+                <fieldset>
+                    <legend>STATUS</legend>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Status</label>
+                        <div class="col-md-4">
+                            <label class="radio-inline"><input type="radio" name="status" value="true" data-bind="checked: Group.status" />Enable</label>
+                            <label class="radio-inline"><input type="radio" name="status" value="false" data-bind="checked: Group.status" />Disable</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <hr/>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-4">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="#/groups" class="btn btn-default" >Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

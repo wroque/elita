@@ -1,0 +1,57 @@
+<div class="panel">
+    <div class="panel-body">
+        <p class="text-center">Sign In to your account</p>
+        
+        <form data-bind="submit: login, with: User">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    <input type="text" name="username" data-bind="value: username" class="form-control" placeholder="username" autocomplete="off" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+                    <input type="password" name="password" data-bind="value: password" class="form-control" placeholder="password" autocomplete="off" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 text-left">
+                    <a href="#omission" data-toggle="modal" class="btn btn-link">Forgot password?</a>
+                </div>
+            </div>
+                        
+            <button class="btn btn-success btn-lg btn-block" type="submit">SIGN IN</button>
+        </form>
+    </div>
+</div>
+
+<!--div class="modal fade" id="omission" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <form data-bind="submit: omission, with: Email">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Forgot password?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input name="address" data-bind="value: address" class="form-control" placeholder="Email" />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <strong>Send</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div-->

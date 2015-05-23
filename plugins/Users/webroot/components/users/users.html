@@ -1,0 +1,121 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">List of Users</h3>
+    </div>
+    <div class="panel-body">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" data-bind="click: refresh">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-bind="click: showFilter">
+                    <i class="glyphicon glyphicon-filter"></i>
+                </button>
+            </div>
+            <div class="btn-group">
+                <a href="#/users/add" class="btn btn-purple btn-labeled fa fa-plus">
+                    Add New
+                </a>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-labeled fa fa-times" data-bind="click: deleteAll, visible: active">
+                    remove
+                </button>
+            </div>
+            <div class="btn-group" data-bind="visible: active">
+                <button type="button" class="btn btn-primary btn-labeled fa fa-check dropdown-toggle" data-toggle="dropdown">
+                    Status <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" data-bind="click: updateAll.bind($data, true)">Enable</a></li>
+                    <li><a href="#" data-bind="click: updateAll.bind($data, false)">Disable</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th width="1"><input type="checkbox" data-bind="click: checkAll" /></th>
+                        <th></th>
+                        <th width="80"><a href="#" data-bind="click: orderBy.bind($data, 'Users.id')">ID</a></th>
+                        <th width=""><a href="#" data-bind="click: orderBy.bind($data, 'Users.username')">Username</a></th>
+                        <th width=""><a href="#" data-bind="click: orderBy.bind($data, 'Groups.name')">Group</a></th>
+                        <th width=""><a href="#" data-bind="click: orderBy.bind($data, 'People.firstname')">Firstname</a></th>
+                        <th width=""><a href="#" data-bind="click: orderBy.bind($data, 'Emails.address')">Email</a></th>
+                        <th width="150"><a href="#" data-bind="click: orderBy.bind($data, 'Users.created')">Created</a></th>
+                        <th width="150"><a href="#" data-bind="click: orderBy.bind($data, 'Users.last_session')">Last Session</a></th>
+                        <th width="1"><a href="#" data-bind="click: orderBy.bind($data, 'Users.status')">Status</a></th>
+                        <th width="1">Panel</th>
+                    </tr>
+                    <tr class="bg-default" data-bind="fadeVisible: display">
+                        <td colspan="2"></td>
+                        <td><input type="text" data-bind="value: filter.Users.id" class="form-control input-sm" /></td>
+                        <td><input type="text" data-bind="value: filter.Users.username" class="form-control input-sm" /></td>
+                        <td><select name="groups" data-bind="options: groups, optionsText: 'name', optionsValue: 'id', value: filter.Users.group_id, optionsCaption: '', chosen: {}" class="form-control input-sm" data-placeholder="Select"></select></td>
+                        <td><input type="text" data-bind="value: filter.People.firstname" class="form-control input-sm" /></td>
+                        <td><input type="text" data-bind="value: filter.Emails.address" class="form-control input-sm" /></td>
+                        <td><input type="text" data-bind="value: filter.Users.created, datepicker: {weekStart: '1'}" class="form-control input-sm" /></td>
+                        <td><input type="text" data-bind="value: filter.Users.last_session, datepicker: {weekStart: '1'}" class="form-control input-sm" /></td>
+                        <td><select name="status" data-bind="options: status, optionsText: 'name', optionsValue: 'id', value: filter.Users.status, optionsCaption: '', chosen: {}" class="form-control input-sm" data-placeholder="Select"></select></td>
+                        <td><button type="button" data-bind="click: paging.paginate.bind($data, 1)" class="btn btn-primary btn-sm">Search</button></td>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: users">
+                    <tr data-bind="css: checked()? 'selected': ''">
+                        <td><input type="checkbox" data-bind="checked: checked" /></td>
+                        <td>
+                            <button class="btn btn-xs btn-default" data-bind="click: $parent.collapse">
+                                <i class="fa" data-bind="css: detail() ? 'fa-minus': 'fa-plus'"></i>
+                            </button>
+                        </td>
+                        <td data-bind="text: id"></td>
+                        <td data-bind="text: username"></td>
+                        <td data-bind="text: Group.name"></td>
+                        <td data-bind="text: Person.firstname"></td>
+                        <td data-bind="text: Email.address"></td>
+                        <td data-bind="text: created, date: created"></td>
+                        <td data-bind="text: last_session, date: last_session"></td>
+                        <td align="center">
+                            <button class="btn btn-xs" data-bind="click: $parent.update.bind($data, $parent), css: status() ? 'btn-success' : 'btn-danger'"><i class="glyphicon glyphicon-check"></i></button>
+                        </td>
+                        <td align="center">
+                            <a data-bind="attr: { href: '#/users/edit/' + id() }" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                        </td>
+                    </tr>
+                    <tr class="active" data-bind="visible: detail">
+                        <td colspan="2"></td>
+                        <td colspan="9">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-2">Firstname:</div>
+                                    <div class="col-sm-4" data-bind="text: Person.firstname"></div>
+                                    <div class="col-sm-2">Address:</div>
+                                    <div class="col-sm-4" data-bind="text: Person.address"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">Lastname:</div>
+                                    <div class="col-sm-4" data-bind="text: Person.lastname"></div>
+                                    <div class="col-sm-2">Phone:</div>
+                                    <div class="col-sm-4" data-bind="text: Person.phone"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">Birthday:</div>
+                                    <div class="col-sm-4">
+                                        <span data-bind="text: Person.birthday, date: Person.birthday, dateOptions: { format: 'LL' }"></span>
+                                    </div>
+                                    <div class="col-sm-2">Sex:</div>
+                                    <div class="col-sm-4">
+                                        <span data-bind="text: Person.sex() === 'F' ? 'Female' : 'Male'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div data-bind="template: 'pagination'"></div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<script type="text/html" id="pagination">
+    <div class="text-right" >
+        <ul class="pagination">
+            <li  data-bind="css: { disabled: paging.page() === 0 }">
+                <a href="#" data-bind="click: paging.paginate.bind($data, paging.page() - 1)">&laquo;</a>
+            </li>
+            <!-- ko foreach: { data: paging.pages, as: 'i' } -->
+            <li data-bind="css: {active: i === $parent.paging.page()}">
+                <a href="#" data-bind="text: i, click: $parent.paging.paginate.bind($data, i)"></a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="css: { disabled: paging.pageCount() === paging.page() }">
+                <a href="#" data-bind="click: paging.paginate.bind($data, paging.page() + 1)">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+</script>

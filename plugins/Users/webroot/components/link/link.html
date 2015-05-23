@@ -1,0 +1,86 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Links</h3>
+    </div>
+    <div class="panel-body">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" data-bind="click: refresh">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-bind="click: showFilter">
+                    <i class="glyphicon glyphicon-filter"></i>
+                </button>
+                <button type="button" class="btn btn-default" data-bind="click: removeAll">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+            </div>
+            <div class="btn-group">
+                <a href="#/links/add" class="btn btn-default">
+                    Add New
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th width="4%"><input type="checkbox" data-bind="click: checkAll" /></th>
+                    <th width="5%">ID</th>
+                    <th width="70%">Title</th>
+                    <th width="5%">Status</th>
+                    <th width="10%">Panel</th>
+                </tr>
+                <tr class="info" data-bind="fadeVisible: filter.display">
+                    <th></th>
+                    <th><input type="text" data-bind="value: filter.id" class="form-control input-sm" /></th>
+                    <th><input type="text" data-bind="value: filter.title" class="form-control input-sm" /></th>
+                    <th><select name="commune" data-bind="options: status, optionsText: 'name', optionsValue: 'id', value: filter.status, optionsCaption: '', chosen: true" class="form-control input-sm"></select></th>
+                    <th><button type="button" data-bind="click: paginate.bind($data, 1)" class="btn btn-default btn-sm">Search</button></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: links">
+                <tr>
+                    <td><input type="checkbox" data-bind="checked: Link.checked" /></td>
+                    <td data-bind="text: Link.id"></td>
+                    <td><a data-bind="text: Link.title, attr: { href: Link.link() }"></a></td>
+                    <td align="center">
+                        <a href="#" data-bind="click: $parent.update, css: Link.status() ? 'label label-success' : 'label label-default'"><i class="glyphicon glyphicon-ok"></i></a>
+                    </td>
+                    <td align="center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" data-bind="click: $parent.edit.bind($data, $parent)">Edit</a></li>
+                            <li><a href="#" data-bind="click: $parent.duplicate.bind($data, $parent)">Duplicate</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" data-bind="click: $parent.remove.bind($data, $parent)">Remove</a></li>
+                        </ul>
+                    </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer text-right">
+        <ul class="pagination">
+            <li  data-bind="css: {disabled: paging.page() === 1}">
+                <a href="#" data-bind="click: paging.paginate.bind($data, paging.page() + 1)">&laquo;</a>
+            </li>
+            <!-- ko foreach: { data: paging.pagers, as: 'i' } -->
+            <li data-bind="css: {active: i === $parent.paging.page()}">
+                <a href="#" data-bind="text: i, click: $parent.paging.paginate.bind($data, i)"></a>
+            </li>
+            <!-- /ko -->
+            <li data-bind="css: {disabled: paging.pageCount() === paging.page()}">
+                <a href="#" data-bind="click:  paging.paginate.bind($data, paging.page() - 1)">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

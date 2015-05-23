@@ -1,0 +1,54 @@
+<form data-bind="submit: save" class="form-horizontal">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Menu</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-4">
+                    <input type="text" name="name" data-bind="value: Menu.name" class="form-control" autocomplete="off" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Alias</label>
+                <div class="col-sm-4">
+                    <input type="text" name="alias" data-bind="value: Menu.alias" class="form-control" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-5">
+                    <textarea name="description" data-bind="value: Menu.description, textareaCount: true" class="form-control" rows="6"></textarea>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Status</label>
+                <div class="col-md-4">
+                    <label class="radio-inline"><input type="radio" name="status" value="true" data-bind="checked: Menu.status" />Enable</label>
+                    <label class="radio-inline"><input type="radio" name="status" value="false" data-bind="checked: Menu.status" />Disable</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <div class="form-group">
+                <div class="col-md-offset-3">
+                    <button type="submit" class="btn btn-primary">
+                        <strong>Save</strong>
+                    </button>
+                    <a href="#/menus" class="btn btn-default">
+                        <strong>Cancel</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
