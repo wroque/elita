@@ -7,11 +7,9 @@ use Cake\Utility\Text;
 use Users\Model\Entity\User;
 use Cake\I18n\Time;
 
-class UsersController extends AppController
-{
+class UsersController extends AppController {
 
-    public function login()
-    {
+    public function login() {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -33,13 +31,12 @@ class UsersController extends AppController
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         $this->Auth->logout();
 
         $message = [
             'message' => __('Session close.'),
-            'type' => 'error'
+            'type' => 'success'
         ];
 
         $this->set([
@@ -48,8 +45,7 @@ class UsersController extends AppController
         ]);
     }
 
-    public function session()
-    {
+    public function session() {
         $user = $this->Auth->user();
         $this->set([
             'user' => $user,
@@ -57,8 +53,7 @@ class UsersController extends AppController
         ]);
     }
 
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'fields' => [
                 'Users.id',
@@ -137,16 +132,15 @@ class UsersController extends AppController
         }
 
         $this->paginate['conditions'] = $conditions;
-        
+
         $users = $this->paginate();
         $paging = $this->count();
-        
+
         $this->set(compact('users', 'paging'));
         $this->set('_serialize', ['users', 'paging']);
     }
 
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $user = $this->Users->find()
                 ->contain(['People', 'Emails'], true)
                 ->where(['Users.id' => $id])
@@ -158,8 +152,7 @@ class UsersController extends AppController
         ]);
     }
 
-    public function add()
-    {
+    public function add() {
         $user = new User();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -182,8 +175,7 @@ class UsersController extends AppController
         }
     }
 
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $user = $this->Users->get($id);
         if ($this->request->is(['post', 'put'])) {
             $this->Users->patchEntity($user, $this->request->data);
@@ -206,8 +198,7 @@ class UsersController extends AppController
         }
     }
 
-    public function update()
-    {
+    public function update() {
         if ($this->request->is(['post', 'put'])) {
             $status = $this->request->data['status'];
             $ids = Text::tokenize($this->request->data['id'], ',');
@@ -230,8 +221,7 @@ class UsersController extends AppController
         }
     }
 
-    public function remove()
-    {
+    public function remove() {
         if ($this->request->is(['post', 'put'])) {
             $ids = Text::tokenize($this->request->data['ids'], ',');
             if ($this->Users->deleteAll(['id IN' => $ids])) {
