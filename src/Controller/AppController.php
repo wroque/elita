@@ -17,6 +17,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
 /**
@@ -40,6 +41,8 @@ class AppController extends Controller
     public function initialize()
     {
         $this->loadComponent('Acl.Acl');
+        $this->loadComponent('Paginator');
+        $this->loadComponent('RequestHandler');
 //        $this->loadComponent('DebugKit.Toolbar');
         $this->loadComponent('Auth', [
             'loginAction' => [
@@ -65,9 +68,26 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
+        $this->settings();
 //        if (empty($this->request->params['prefix'])) {
             $this->Auth->allow();
 //        }
     }
 
+    protected function count() {
+        $paging = $this->request->params['paging'];
+        return current($paging);
+    }
+
+    private function settings() {
+        $settings = TableRegistry::get('Users.Settings');
+        $query = $settings->findAllByStatus(true);
+
+        foreach ($query as $row) {
+            $const = strtoupper($row->name);
+            if (!defined($const)) {
+                define($const, $row->value);
+            }
+        }
+    }
 }
