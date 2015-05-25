@@ -198,4 +198,4 @@ Plugin::load('Acl', ['bootstrap' => true]);
 
 Plugin::load('Users', ['routes' => true]);
 
-Plugin::load('Posts', ['bootstrap' => false, 'routes' => true]);
+//Plugin::load('Posts', ['bootstrap' => false, 'routes' => true]);

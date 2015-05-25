@@ -43,7 +43,6 @@ class AppController extends Controller
         $this->loadComponent('Acl.Acl');
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
-//        $this->loadComponent('DebugKit.Toolbar');
         $this->loadComponent('Auth', [
             'loginAction' => [
                 'controller' => 'Users',
